@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import LoginPage from "./pages/LoginPage";
+import OneboxPage from "./pages/OneboxPage";
+import NotificationPage from "./pages/NotificationPage"; // Add this import
+import ReplyPage from './pages/ReplyPage';
+import { AuthProvider } from "./context/AuthContext";
 
-function App() {
+const App = () => {
+  const [darkMode, setDarkMode] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthProvider>
+      <div className={darkMode ? "dark" : ""}>
+        <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+          <button
+            onClick={() => setDarkMode(!darkMode)}
+            className="p-2 bg-gray-800 text-white fixed top-2 right-2"
+          >
+            Toggle Dark Mode
+          </button>
+          <Router>
+            <Routes>
+              <Route path="/reply" element={<ReplyPage />} />
+              <Route path="/notifications" element={<NotificationPage />} />
+              <Route path="/onebox" element={<OneboxPage />} />
+              <Route path="/" element={<LoginPage />} />
+            </Routes>
+          </Router>
+        </div>
+      </div>
+    </AuthProvider>
   );
-}
+};
 
 export default App;
