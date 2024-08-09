@@ -7,7 +7,7 @@ const NotificationPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const apiEndpoint = 'http://localhost:5000/notifications';
+    const apiEndpoint = '/api/notifications';
 
     const fetchData = async () => {
       try {
